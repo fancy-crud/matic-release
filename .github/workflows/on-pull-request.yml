@@ -14,6 +14,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Run Changelog CI
+        uses: saadmk11/changelog-ci@v1.1.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 'Get previous tag'
         id: fromTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
@@ -50,11 +55,6 @@ jobs:
       #     configuration: "changelog-config.json"
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run Changelog CI
-        uses: saadmk11/changelog-ci@v1.1.2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
 
     #   - name: Create Release
     #     uses: softprops/action-gh-release@v1
