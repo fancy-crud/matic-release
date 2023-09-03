@@ -47,11 +47,11 @@ jobs:
           token: ${{ github.token }}
           tag: v1.0.0-alpha.21
 
-      - name: Run Changelog CI
-        uses: saadmk11/changelog-ci@v1.1.2
-        with:
-          config_file: changelog-config.json
-          release_version: v1.0.0-alpha.21
+      # - name: Run Changelog CI
+      #   uses: saadmk11/changelog-ci@v1.1.2
+      #   with:
+      #     config_file: changelog-config.json
+          # release_version: v1.0.0-alpha.21
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v3
