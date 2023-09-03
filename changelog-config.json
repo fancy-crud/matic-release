@@ -1,6 +1,6 @@
 {
-    "changelog_type": "pull_request",
-    "header_prefix": " ",
+    "changelog_type": "commit_message",
+    "header_prefix": "",
     "commit_changelog": false,
     "comment_changelog": true,
     "include_unlabeled_changes": true,
