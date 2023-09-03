@@ -68,7 +68,8 @@ jobs:
         with:
           title: Promote CI to Alpha
           body: ${{ steps.github_release.outputs.changelog }}
-          branch: alpha
+          base: alpha
+          branch: ci/prerelease-workflow
           delete-branch: true
           draft: true
           labels: |
