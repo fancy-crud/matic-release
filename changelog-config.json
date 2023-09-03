@@ -1,12 +1,12 @@
 {
     "categories": [
       {
-        "key": "feat",
-        "title": "## 🚀 Features"
+        "title": "## 🚀 Features",
+        "labels": ["feat", "feature"]
       },
       {
-        "key": "fix",
-        "title": "## 🐛 Fixes"
+        "title": "## 🐛 Fixes",
+        "labels": ["fix"]
       },
       {
         "key": "tests",
@@ -15,10 +15,9 @@
       }
     ],
     "sort": {
-      "order": "ASC",
-      "on_property": "mergedAt"
+      "order": "ASC"
     },
-    "template": "#{{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n#{{UNCATEGORIZED}}\n</details>",
+    "template": "#{{CHANGELOG}}",
     "pr_template": "- #{{TITLE}} ##{{NUMBER}}",
     "empty_template": "- no changes"
 }
