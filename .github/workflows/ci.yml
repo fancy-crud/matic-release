@@ -2,7 +2,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [main, alpha, beta, next]
+    branches: [alpha, beta, next]
 
 jobs:
   # quality:
@@ -64,6 +64,15 @@ jobs:
 
       - name: Publish tag
         run: git push --tags
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          title: "Development Build ${{ github.ref_name }}"
+          files: |
+            LICENSE.txt
+            *.jar
 
       # - name: install pnpm
       #   run: npm i pnpm@latest -g
