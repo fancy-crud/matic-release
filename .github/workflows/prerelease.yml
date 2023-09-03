@@ -47,7 +47,7 @@ jobs:
 
       - name: Reset promotion branch
         run: |
-          git fetch origin alpha
+          git fetch origin alpha:alpha
           git reset --hard alpha
 
       - name: Build Changelog
