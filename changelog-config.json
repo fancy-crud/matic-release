@@ -12,25 +12,7 @@
         "key": "tests",
         "title": "## 🧪 Tests",
         "labels": ["test"]
-      },
-      {
-        "title": "## 🧪 Tests and some 🪄 Magic",
-        "labels": ["test", "magic"],
-        "exclude_labels": ["no-magic"],
-        "exhaustive": true,
-        "exhaustive_rules": "false",
-        "empty_content": "- no matching PRs",
-        "rules": [
-          {
-            "pattern": "open",
-            "on_property": "status",
-            "flags": "gu"
-          }
-        ]
       }
-    ],
-    "ignore_labels": [
-      "ignore"
     ],
     "sort": {
       "order": "ASC",
@@ -38,24 +20,5 @@
     },
     "template": "#{{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n#{{UNCATEGORIZED}}\n</details>",
     "pr_template": "- #{{TITLE}} ##{{NUMBER}}",
-    "empty_template": "- no changes",
-    "reference": {
-      "pattern": ".*\\ \\#(.).*",
-      "on_property": "body",
-      "method": "replace",
-      "target": "$1"
-    },
-    "transformers": [
-      {
-        "pattern": "[\\-\\*] (\\[(...|TEST|CI|SKIP)\\])( )?(.+?)\n(.+?[\\-\\*] )(.+)",
-        "target": "- $4\n  - $6"
-      }
-    ],
-    "tag_resolver": {
-      "method": "semver",
-      "filter": {
-        "pattern": "api-(.+)",
-        "flags": "gu"
-      }
-    }
+    "empty_template": "- no changes"
 }
