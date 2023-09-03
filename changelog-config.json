@@ -1,6 +1,6 @@
 {
     "changelog_type": "commit_message",
-    "header_prefix": "",
+    "header_prefix": " ",
     "commit_changelog": false,
     "comment_changelog": true,
     "include_unlabeled_changes": true,
