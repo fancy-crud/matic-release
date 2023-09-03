@@ -1,0 +1,25 @@
+name: "pre-release"
+
+on:
+  push:
+    branches:
+      - "alpha"
+      - "beta"
+      - "rc"
+
+jobs:
+  pre-release:
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{ github.ref_name }}
+          prerelease: true
+          title: "Development Build ${{ github.ref_name }}"
+          files: |
+            LICENSE.txt
+            *.jar
