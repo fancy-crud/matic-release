@@ -2,7 +2,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [alpha, beta, next]
+    branches: [alpha, beta, rc]
 
 jobs:
   # quality:
@@ -65,9 +65,14 @@ jobs:
       - name: Publish tag
         run: git push --tags
 
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{ steps.previoustag.outputs.tag }}
           prerelease: true
           title: "Development Build ${{ github.ref_name }}"
           files: |
