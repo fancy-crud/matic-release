@@ -69,6 +69,8 @@ jobs:
           title: Promote CI to Alpha
           body: ${{ steps.github_release.outputs.changelog }}
           branch: ${{ github.ref_name }}
+          reviewers: cafadev
+          assignees: cafadev
           delete-branch: true
           draft: true
           labels: |
