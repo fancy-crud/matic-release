@@ -5,33 +5,6 @@ on:
     branches: [alpha, beta, rc]
 
 jobs:
-  # quality:
-
-  #   runs-on: ${{ matrix.os }}
-
-  #   strategy:
-  #     matrix:
-  #       # node-version: [10.x, 12.x, 14.x, 15.x, 16.x, 17.x]
-  #       node-version: [16.x]
-  #       # os: [ubuntu-latest, windows-latest]
-  #       os: [ubuntu-latest]
-  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #     - uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 8
-  #         run_install: |
-  #           - recursive: true
-  #             args: [--frozen-lockfile, --strict-peer-dependencies]
-  #           - args: [--global, gulp, prettier, typescript]
-  #     # - run: yarn test
-
   publish:
     timeout-minutes: 15
     runs-on: ubuntu-latest
@@ -64,49 +37,23 @@ jobs:
       - name: Publish tag
         run: git push --tags
 
-      - name: 'Get Previous tag'
+      - name: 'Get lastest tag'
         id: toTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
         with:
-          # toTag: ${{ steps.toTag.outputs.tag }}
-          # fromTag: ${{ steps.fromTag.outputs.tag }}
-          configuration: "changelog-config.json"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
+          tag: ${{ steps.toTag.outputs.tag }}
 
-      # - uses: "marvinpinto/action-automatic-releases@latest"
-      #   with:
-      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-      #     automatic_release_tag: ${{ steps.toTag.outputs.tag }}
-      #     prerelease: true
-      #     title: "${{ steps.toTag.outputs.tag }}"
+      - name: Changelog Content
+        run: echo ${{ steps.changelog.outputs.changelog }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{steps.github_release.outputs.changelog}}
+          body: ${{ steps.changelog.outputs.changelog }}
           prerelease: true
           tag_name: ${{ steps.toTag.outputs.tag }}
-
-      # - name: install pnpm
-      #   run: npm i pnpm@latest -g
-
-      # - name: Setup npmrc
-      #   run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-
-      # - name: setup pnpm config
-      #   run: pnpm config set store-dir $PNPM_CACHE_FOLDER
-
-      # - name: install dependencies
-      #   run: pnpm install
-
-      # - name: Compute version
-      #   run: ./scripts/release.sh --apply
-      
-      # - name: Publish
-      #   # run: pnpm -r publish --no-git-checks
-      #   run: echo "\n\n\n\n Publishing "
