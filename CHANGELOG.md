@@ -1,3 +1,9 @@
+# Version: v1.0.0-alpha.21
+
+* [62198ec](https://github.com/fancy-crud/matic-release/commit/62198ec2060d1da63b297414ed31f254ccac5442): feat: add ci flow with dagger
+* [b0fe273](https://github.com/fancy-crud/matic-release/commit/b0fe273db412d2df9e6dddb6d4538874f7476df5): feat: initial project status
+
+
 # Version: v1.0.0-alpha.20
 
 * [#1](https://github.com/fancy-crud/matic-release/pull/1): feat: testing changelog
