@@ -41,6 +41,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 'Get Previous tag'
+        id: fromTag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
       - name: setup node.js
         uses: actions/setup-node@v3
         with:
@@ -66,15 +70,29 @@ jobs:
         run: git push --tags
 
       - name: 'Get Previous tag'
-        id: previoustag
+        id: toTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{ steps.previoustag.outputs.tag }}
-          prerelease: true
-          title: "${{ steps.previoustag.outputs.tag }}"
+          toTag: ${{ steps.toTag.outputs.tag }}
+          fromTag: ${{ steps.fromTag.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - uses: "marvinpinto/action-automatic-releases@latest"
+      #   with:
+      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      #     automatic_release_tag: ${{ steps.toTag.outputs.tag }}
+      #     prerelease: true
+      #     title: "${{ steps.toTag.outputs.tag }}"
+
+      - name: Create Release
+        uses: mikepenz/action-gh-release@v0.2.0-a03 #softprops/action-gh-release
+        with:
+          body: ${{steps.github_release.outputs.changelog}}
 
       # - name: install pnpm
       #   run: npm i pnpm@latest -g
