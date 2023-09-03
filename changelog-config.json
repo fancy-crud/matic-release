@@ -22,7 +22,7 @@
     "empty_template": "- no changes",
     "label_extractor": [
         {
-          "pattern": "(.) (.+)",
+          "pattern": "(.+):",
           "target": "$1",
           "flags": "gu"
         }
