@@ -57,12 +57,6 @@ jobs:
       #     config_file: changelog-config.json
           # release_version: v1.0.0-alpha.21
 
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          issue-number: ${{ github.event.pull_request.id }}
-          body: ${{ steps.changelog.outputs.changelog }}
-
       # - name: Build Changelog
       #   id: github_release
       #   uses: mikepenz/release-changelog-builder-action@v3
