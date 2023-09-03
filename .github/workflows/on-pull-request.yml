@@ -45,7 +45,8 @@ jobs:
         uses: requarks/changelog-action@v1
         with:
           token: ${{ github.token }}
-          tag: v1.0.0-alpha.20
+          fromTag: v1.0.0-alpha.1
+          toTag: v1.0.0-alpha.20
 
       - name: Changelog Content
         run: echo ${{ steps.changelog.outputs.changelog }}
