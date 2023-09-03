@@ -45,7 +45,7 @@ jobs:
         uses: requarks/changelog-action@v1
         with:
           token: ${{ github.token }}
-          tag: v1.0.0-alpha.21
+          tag: v1.0.0-alpha.20
 
       # - name: Run Changelog CI
       #   uses: saadmk11/changelog-ci@v1.1.2
