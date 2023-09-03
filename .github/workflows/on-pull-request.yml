@@ -12,12 +12,6 @@ jobs:
       - name: checkout code repository
         uses: actions/checkout@v2
 
-      - name: Run Changelog CI
-        uses: saadmk11/changelog-ci@v1.1.2
-        with:
-          release_version: v1.0.0-alpha.20
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: 'Get previous tag'
         id: fromTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
@@ -44,6 +38,11 @@ jobs:
       - name: 'Get lastest tag'
         id: toTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
+      - name: Run Changelog CI
+        uses: saadmk11/changelog-ci@v1.1.2
+        # with:
+        #   release_version: ${{ steps.toTag.outputs.tag }}
 
       # - name: Build Changelog
       #   id: github_release
