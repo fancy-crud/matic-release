@@ -3,8 +3,6 @@ name: Pre-release version
 on:
   push:
     branches: [alpha, beta, rc]
-  pull_request:
-    branches: [alpha]
 
 jobs:
   # quality:
