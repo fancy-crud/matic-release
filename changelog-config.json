@@ -1,10 +1,12 @@
 {
     "categories": [
       {
+        "key": "feat",
         "title": "## 🚀 Features",
         "labels": ["feature"]
       },
       {
+        "key": "fix",
         "title": "## 🐛 Fixes",
         "labels": ["fix"]
       },
