@@ -77,8 +77,8 @@ jobs:
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v3
         with:
-          toTag: ${{ steps.toTag.outputs.tag }}
-          fromTag: ${{ steps.fromTag.outputs.tag }}
+          # toTag: ${{ steps.toTag.outputs.tag }}
+          # fromTag: ${{ steps.fromTag.outputs.tag }}
           configuration: "changelog-config.json"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
