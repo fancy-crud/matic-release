@@ -47,6 +47,9 @@ jobs:
           token: ${{ github.token }}
           tag: v1.0.0-alpha.20
 
+      - name: Changelog Content
+        run: ${{ steps.changelog.outputs.changelog }}
+
       # - name: Run Changelog CI
       #   uses: saadmk11/changelog-ci@v1.1.2
       #   with:
