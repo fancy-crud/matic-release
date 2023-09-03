@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Pre-release version
 
 on:
   push:
@@ -74,10 +74,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{ steps.previoustag.outputs.tag }}
           prerelease: true
-          title: "Development Build ${{ github.ref_name }}"
-          files: |
-            LICENSE.txt
-            *.jar
+          title: "${{ steps.previoustag.outputs.tag }}"
 
       # - name: install pnpm
       #   run: npm i pnpm@latest -g
