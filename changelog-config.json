@@ -17,7 +17,14 @@
     "sort": {
       "order": "ASC"
     },
-    "template": "#{{CHANGELOG}}",
+    "template": "#{{CHANGELOG}}\n\n",
     "pr_template": "- #{{TITLE}} ##{{NUMBER}}",
-    "empty_template": "- no changes"
+    "empty_template": "- no changes",
+    "label_extractor": [
+        {
+          "pattern": "(.) (.+)",
+          "target": "$1",
+          "flags": "gu"
+        }
+      ]
 }
