@@ -16,16 +16,9 @@ async def test():
 
         python = (
             client.container().from_("weastur/poetry:latest-python-3.11")
-            .with_exec(["apt-get", "install", "git"])
-            # mount cloned repository into image
             .with_directory("/matic-release", src)
-            # set current working directory for next commands
             .with_workdir("/matic-release")
-            # install test dependencies
-            # .with_exec(["poetry", "shell"])
-            # install test dependencies
             .with_exec(["poetry", "install"])
-            # run tests
             .with_exec(["python", "main.py"])
         )
 

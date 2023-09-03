@@ -62,6 +62,9 @@ jobs:
       - name: Run Dagger pipeline
         run: poetry run python ci.py
 
+      - name: Publish tag
+        run: git push --tags
+
       # - name: install pnpm
       #   run: npm i pnpm@latest -g
 
