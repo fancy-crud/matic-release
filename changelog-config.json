@@ -83,8 +83,5 @@
         "pattern": "api-(.+)",
         "flags": "gu"
       }
-    },
-    "base_branches": [
-      "main"
-    ]
+    }
 }
