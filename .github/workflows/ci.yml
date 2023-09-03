@@ -59,11 +59,8 @@ jobs:
       - name: Install deps
         run: poetry install
 
-      - name: Activate poetry environment
-        run: poetry shell
-
       - name: Run Dagger pipeline
-        run: python ci.py
+        run: poetry run python ci.py
 
       # - name: install pnpm
       #   run: npm i pnpm@latest -g
