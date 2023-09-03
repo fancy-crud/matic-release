@@ -47,7 +47,7 @@ jobs:
 
       - name: Reset promotion branch
         run: |
-          git fetch origin alpha:alpha
+          git fetch origin alpha
           git reset --hard alpha
 
       - name: Build Changelog
@@ -66,7 +66,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: Promote Develop to Main (Staging)
+          title: Promote CI to Alpha
           body: ${{ steps.github_release.outputs.changelog }}
           branch: alpha
           delete-branch: true
@@ -78,6 +78,6 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{ steps.changelog.outputs.changelog }}
+          body: ${{ steps.github_release.outputs.changelog }}
           prerelease: true
           tag_name: ${{ steps.toTag.outputs.tag }}
