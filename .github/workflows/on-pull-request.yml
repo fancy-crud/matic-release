@@ -2,6 +2,7 @@ name: Pre-release version
 
 on:
   pull_request:
+    types: [synchronize]
     branches: [alpha]
 
 jobs:
