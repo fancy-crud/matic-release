@@ -2,7 +2,7 @@ name: Pre-release version
 
 on:
   push:
-    branches: [alpha, beta, rc]
+    branches: [alpha, beta, rc, ci/prerelease-workflow]
 
 jobs:
   publish:
@@ -41,15 +41,39 @@ jobs:
         id: toTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
-      - name: Update CHANGELOG
-        id: changelog
-        uses: requarks/changelog-action@v1
+      - uses: actions/checkout@v3
         with:
-          token: ${{ github.token }}
-          tag: ${{ steps.toTag.outputs.tag }}
+          ref: alpha
 
-      - name: Changelog Content
-        run: echo ${{ steps.changelog.outputs.changelog }}
+      - name: Reset promotion branch
+        run: |
+          git fetch origin alpha:alpha
+          git reset --hard alpha
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          configuration: "changelog-config.json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Echo Changelog
+        env:
+          CHANGELOG: ${{ steps.github_release.outputs.changelog }}
+        run: echo "$CHANGELOG"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: Promote Develop to Main (Staging)
+          body: ${{ steps.github_release.outputs.changelog }}
+          branch: alpha
+          delete-branch: true
+          draft: true
+          labels: |
+            release
+            automated
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
