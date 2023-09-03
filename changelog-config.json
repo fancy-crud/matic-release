@@ -2,13 +2,11 @@
     "categories": [
       {
         "key": "feat",
-        "title": "## 🚀 Features",
-        "labels": ["feature"]
+        "title": "## 🚀 Features"
       },
       {
         "key": "fix",
-        "title": "## 🐛 Fixes",
-        "labels": ["fix"]
+        "title": "## 🐛 Fixes"
       },
       {
         "key": "tests",
