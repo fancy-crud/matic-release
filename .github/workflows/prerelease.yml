@@ -1,0 +1,88 @@
+name: Pre-release version
+
+on:
+  push:
+    branches: [ci/prerelease-workflow]
+
+jobs:
+  publish:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 'Get Previous tag'
+        id: fromTag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
+      - name: Installing python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Installing poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: '1.6.1'
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Run Dagger pipeline
+        run: poetry run python ci.py
+
+      - name: Publish tag
+        run: git push --tags
+
+      - name: 'Get lastest tag'
+        id: toTag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+
+      - uses: actions/checkout@v3
+        with:
+          ref: alpha
+
+      - name: Reset promotion branch
+        run: |
+          git fetch origin ${{ github.ref_name }}:${{ github.ref_name }}
+          git reset --hard ${{ github.ref_name }}
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          toTag: ${{ steps.toTag.outputs.tag }}
+          configuration: "changelog-config.json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Echo Changelog
+        env:
+          CHANGELOG: ${{ steps.github_release.outputs.changelog }}
+        run: echo "$CHANGELOG"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: Promote CI to Alpha
+          body: ${{ steps.github_release.outputs.changelog }}
+          branch: ${{ github.ref_name }}
+          reviewers: cafadev
+          assignees: cafadev
+          delete-branch: true
+          draft: true
+          labels: |
+            release
+            automated
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ steps.github_release.outputs.changelog }}
+          prerelease: true
+          tag_name: ${{ steps.toTag.outputs.tag }}
