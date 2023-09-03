@@ -17,7 +17,7 @@ class Tag:
     minor: int = 0
     patch: int = 0
     stage: TagStage = TagStage.alpha
-    revision: int = 1
+    revision: int = 0
 
     @property
     def value(self) -> str:
@@ -74,12 +74,12 @@ class Tag:
     def reset_minor(self) -> None:
         self.minor = 0
         self.patch = 0
-        self.revision = 1
+        self.revision = 0
 
     def reset_patch(self) -> None:
         self.patch = 0
-        self.revision = 1
+        self.revision = 0
 
     def reset_revision(self) -> None:
-        self.revision = 1
+        self.revision = 0
     

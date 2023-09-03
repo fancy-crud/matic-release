@@ -1,6 +1,4 @@
-import re
 from enum import StrEnum
-from matic_release.axioma.git import Git
 from matic_release.axioma.version import Version
 
 

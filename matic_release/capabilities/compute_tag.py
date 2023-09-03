@@ -2,8 +2,8 @@ from typing import Callable
 from matic_release.axioma.git import Git
 from matic_release.axioma.tag import TagStage
 from matic_release.axioma.version import Version
-from matic_release.capabilities.commit_analyzer import CommitAnalyzer, CommitAnalyzerAction
 from matic_release.config import branches
+from .commit_analyzer import CommitAnalyzer, CommitAnalyzerAction
 
 
 class ComputeTag:
@@ -13,9 +13,9 @@ class ComputeTag:
         self.commit_analyzer = commit_analyzer
 
     def execute(self, version: Version) -> None:
-        commit_message = self.git.latest_commit_message()
+        commit_message = self.git.get_latest_commit_message()
         action = self.commit_analyzer.execute(version, commit_message)
-        current_branch = self.git.current_branch()
+        current_branch = self.git.get_current_branch()
 
         actions = {
             CommitAnalyzerAction.major: version.future_tag.increment_major,

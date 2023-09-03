@@ -3,7 +3,7 @@ from os import path
 import re
 from typing import cast
 
-from matic_release.axioma.exceptions import UnprocessableVersionFormat
+from .exceptions import UnprocessableVersionFormat
 from .tag import Tag, TagStage
 
 
@@ -48,7 +48,7 @@ class Version:
         return (_stage, _revision)
 
     def __extract_version_parts(self):
-        major, minor, patch, stage, revision = (None, None, None, TagStage.alpha, 1)
+        major, minor, patch, stage, revision = (None, None, None, TagStage.alpha, 0)
 
         release_regex = r'(\d+)(?:\.(\d+))?(?:\.(\d+))?'
         release_match = re.match(release_regex, self.version)
@@ -67,7 +67,7 @@ class Version:
         if major is None:
             major = 1
             stage = TagStage.alpha
-            revision = 1
+            revision = 0
 
         result = {
             "major": int(major),

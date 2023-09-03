@@ -6,8 +6,8 @@ from matic_release.axioma.version import Version
 @pytest.mark.parametrize(
     "input_value, expected_value",
     [
-        ("", "1.0.0-alpha.1"),
-        ("invalid version", "1.0.0-alpha.1"),
+        ("", "1.0.0-alpha.0"),
+        ("invalid version", "1.0.0-alpha.0"),
         ("2.2.0-alpha.3", "2.2.0-alpha.3"),
         ("10.2.0-beta.10", "10.2.0-beta.10"),
         ("5.6.0-rc.3", "5.6.0-rc.3"),
