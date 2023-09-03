@@ -2,7 +2,7 @@ name: Pre-release version
 
 on:
   push:
-    branches: [alpha, beta, rc, ci/prerelease-workflow]
+    branches: [ci/prerelease-workflow]
 
 jobs:
   publish:
@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/checkout@v3
         with:
-          ref: alpha
+          ref: ci/prerelease-workflow
 
       - name: Reset promotion branch
         run: |
@@ -68,7 +68,7 @@ jobs:
         with:
           title: Promote CI to Alpha
           body: ${{ steps.github_release.outputs.changelog }}
-          branch: ci/prerelease-workflow
+          branch: alpha
           delete-branch: true
           draft: true
           labels: |
