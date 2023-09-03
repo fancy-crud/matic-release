@@ -45,11 +45,6 @@ jobs:
         id: fromTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
-      - name: setup node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-
       - name: Installing python
         uses: actions/setup-python@v4
         with:
