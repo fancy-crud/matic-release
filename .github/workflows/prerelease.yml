@@ -65,6 +65,8 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           title: Promote CI to Alpha
           body: ${{ steps.github_release.outputs.changelog }}
