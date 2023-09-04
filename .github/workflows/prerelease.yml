@@ -34,7 +34,7 @@ jobs:
       - name: Install deps
         run: poetry install
 
-      - name: Run Dagger pipeline
+      - name: Run matic-release
         run: poetry run python main.py
 
       - name: Publish tag
