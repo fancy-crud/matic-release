@@ -48,7 +48,7 @@ jobs:
         run: |
           {
             echo 'CHANGELOG<<EOF'
-            git cliff
+            git cliff --latest
             echo EOF
           } >> "$GITHUB_ENV"
 
