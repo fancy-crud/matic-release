@@ -46,10 +46,14 @@ jobs:
 
       - name: Run git-cliff
         run: |
-          echo "CHANGELOG=$(git cliff)" >> $GITHUB_ENV
+          {
+            echo 'CHANGELOG<<EOF'
+            git cliff
+            echo EOF
+          } >> "$GITHUB_ENV"
 
       - name: Display content
-        run: echo $CHANGELOG
+        run: echo ${{ env.CHANGELOG }}
 
       # - name: Create Release
       #   uses: softprops/action-gh-release@v1
