@@ -48,16 +48,13 @@ jobs:
         run: |
           {
             echo 'CHANGELOG<<EOF'
-            git cliff
+            git cliff --latest
             echo EOF
           } >> "$GITHUB_ENV"
 
-      - name: Display content
-        run: echo ${{ env.CHANGELOG }}
-
-      # - name: Create Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     body: $CHANGELOG
-      #     prerelease: true
-      #     tag_name: ${{ steps.toTag.outputs.tag }}
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: $CHANGELOG
+          prerelease: true
+          tag_name: ${{ steps.toTag.outputs.tag }}
