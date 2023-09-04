@@ -21,3 +21,5 @@ compute_tag.execute(version)
 # publish.execute(version)
 
 print(version.future_tag.value)
+
+git.push_tag(version.future_tag.value)
