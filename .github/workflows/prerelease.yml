@@ -49,6 +49,11 @@ jobs:
     needs: compute-new-tag-version
     if: ${{ needs.compute-new-tag-version.outputs.fromTag != needs.compute-new-tag-version.outputs.toTag }}
     steps:
+      - name: checkout code repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Set up git-cliff
         uses: kenji-miyake/setup-git-cliff@v1
 
