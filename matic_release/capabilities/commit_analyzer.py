@@ -1,4 +1,5 @@
 from enum import StrEnum
+from matic_release.axioma.tag import TagStage
 from matic_release.axioma.version import Version
 
 
@@ -18,10 +19,13 @@ rules = {
 class CommitAnalyzer:
 
     def execute(self, version: Version, commit_message: str) -> CommitAnalyzerAction | None:
-        is_breaking_change = 'BREAKING-CHANGE' in commit_message
+        is_prerelease = version.current_tag.is_prerelease
+        is_breaking_change = next((
+            bool(breaking) for breaking in ['BREAKING-CHANGE', 'BREAKING CHANGE'] if breaking in commit_message
+        ), False)
 
         if is_breaking_change:
-            return CommitAnalyzerAction.major
+            return CommitAnalyzerAction.revision if is_prerelease else CommitAnalyzerAction.major
         
         rules_keys = list(rules)
 
