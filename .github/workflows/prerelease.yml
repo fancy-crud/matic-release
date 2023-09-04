@@ -46,7 +46,7 @@ jobs:
 
       - name: Run git-cliff
         run: |
-          CHANGELOG=$(git cliff)
+          echo "CHANGELOG=$(git cliff)" >> $GITHUB_ENV
 
       - name: Display content
         run: echo $CHANGELOG
