@@ -21,3 +21,4 @@ publish = PublishTag(git)
 publish.execute(version)
 
 print(version.future_tag.value)
+
