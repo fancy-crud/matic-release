@@ -41,6 +41,9 @@ jobs:
         id: toTag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
+      - name: Set up git-cliff
+        uses: kenji-miyake/setup-git-cliff@v1
+
       - name: Run git-cliff
         run: |
           CHANGELOG=$(git cliff)
