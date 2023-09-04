@@ -48,9 +48,12 @@ jobs:
         run: |
           CHANGELOG=$(git cliff)
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body: $CHANGELOG
-          prerelease: true
-          tag_name: ${{ steps.toTag.outputs.tag }}
+      - name: Display content
+        run: echo $CHANGELOG
+
+      # - name: Create Release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     body: $CHANGELOG
+      #     prerelease: true
+      #     tag_name: ${{ steps.toTag.outputs.tag }}
