@@ -16,7 +16,7 @@ from matic_release.capabilities.commit_analyzer import CommitAnalyzer, CommitAna
         (Version("1.0.0-alpha.1"), "feat: Add new feature", CommitAnalyzerAction.revision),
         (Version("1.0.0-beta.1"), "feat: Add new feature", CommitAnalyzerAction.revision),
         (Version("1.0.0-rc.1"), "feat: Add new feature", CommitAnalyzerAction.revision),
-        (Version("1.0.0-rc.1"), "feat: Add new feature \n\n BREAKING-CHANGE: another breaking change", CommitAnalyzerAction.major),
+        (Version("1.0.0-rc.1"), "feat: Add new feature \n\n BREAKING-CHANGE: another breaking change", CommitAnalyzerAction.revision),
     ],
 )
 def test_commit_analyzer_execute(version, commit_message, expected_action):

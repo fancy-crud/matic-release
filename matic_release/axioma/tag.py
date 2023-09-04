@@ -74,11 +74,11 @@ class Tag:
     def reset_minor(self) -> None:
         self.minor = 0
         self.patch = 0
-        self.revision = 0
+        self.revision = 1
 
     def reset_patch(self) -> None:
         self.patch = 0
-        self.revision = 0
+        self.revision = 1
 
     def reset_revision(self) -> None:
         self.revision = 0

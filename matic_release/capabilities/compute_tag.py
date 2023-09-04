@@ -13,9 +13,11 @@ class ComputeTag:
         self.commit_analyzer = commit_analyzer
 
     def execute(self, version: Version) -> None:
+        current_branch = self.git.get_current_branch()
+        stage: TagStage = branches.get(current_branch, TagStage.alpha)
+
         commit_message = self.git.get_latest_commit_message()
         action = self.commit_analyzer.execute(version, commit_message)
-        current_branch = self.git.get_current_branch()
 
         actions = {
             CommitAnalyzerAction.major: version.future_tag.increment_major,
@@ -24,8 +26,12 @@ class ComputeTag:
             CommitAnalyzerAction.revision: version.future_tag.increment_revision
         }
 
-        stage: TagStage = branches.get(current_branch, TagStage.alpha)
         action_trigger: Callable[[], None] | None = None
+
+        if version.current_tag.is_prerelease and stage is TagStage.release:
+            version.future_tag.set_stage(stage)
+            version.future_tag.reset_revision()
+            return
 
         if action:
             action_trigger = actions.get(action, None)
@@ -36,9 +42,11 @@ class ComputeTag:
         if not version.current_tag.is_prerelease:
             version.future_tag.set_stage(stage)
             version.future_tag.reset_revision()
+            version.future_tag.increment_revision()
             return
         
         if stage is not version.current_tag.stage:
             version.future_tag.set_stage(stage)
             version.future_tag.reset_revision()
+            version.future_tag.increment_revision()
             return
