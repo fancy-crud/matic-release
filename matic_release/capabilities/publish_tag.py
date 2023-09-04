@@ -14,7 +14,7 @@ class PublishTag:
         has_hash = self.git.get_tag_hash(version.future_tag.value)
 
         if has_hash is not None:
-            print(f"Unable to set tag {version.future_tag.value}.")
-            raise UnprocessableExistingTag()
+            print(f"Unable to set new tag{version.future_tag.value}.")
+            return
         
         self.git.push_tag(version.future_tag.value)

@@ -42,6 +42,7 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
       - name: Set up git-cliff
+        if: ${{ steps.toTag.outputs.tag != steps.fromTag.outputs.tag }}
         uses: kenji-miyake/setup-git-cliff@v1
 
       - name: Run git-cliff
